@@ -1,0 +1,57 @@
+#outer-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    height: 100%;
+}
+
+.container {
+    width: 50%;
+    min-width: 200px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 50px;
+}
+
+.input-textarea {
+    height: 150px; /* Larger text box for paragraph size */
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 16px; /* Larger font size for readability */
+    resize: vertical; /* Allows vertical resizing */
+}
+
+.group-select {
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.send-button {
+    background-color: #2578f9;
+    color: white;
+    padding: 15px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 100px;
+    width: 75%;
+    margin: 0px auto;
+    margin-top: 20px;
+}
+
+.send-button:hover {
+    background-color: dodgerblue;
+}
+
+label {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+
