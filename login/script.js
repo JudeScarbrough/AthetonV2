@@ -18,7 +18,8 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const database = getDatabase(app);
-        
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+
 
 
         document.getElementById('googleLogin').addEventListener('click', function() {
@@ -44,11 +45,12 @@
 
         async function routeUser() {
             const data = await getUserDataAsJSON();
-            if (data["setup"]){
-                console.log("setup")
-            } else {
-                console.log("no setup")
+            
+
+            if (data == null){
+                window.location.href = "../settings/settings.html"
             }
+
 
 
 
@@ -69,7 +71,7 @@
             }
 
             if (data["setup"] == "Yes" && data["paid"] == "Yes"){
-                window.location.href = "../dashboard/dashboard.html"
+                window.location.href = "../dashboard/index.html"
             }
             
 

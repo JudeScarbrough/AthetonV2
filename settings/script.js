@@ -21,6 +21,7 @@ const database = getDatabase(app);
 
 
 
+
 document.getElementById('confirm').addEventListener('click', async function() {
     var name = document.getElementById("companyName").value
     var email = document.getElementById("customerEmail").value
@@ -29,7 +30,12 @@ document.getElementById('confirm').addEventListener('click', async function() {
     if (name && email && phone){
         console.log("form")
 
-        const data = await getUserData()
+        var data = await getUserData()
+
+        if(data == null){
+            data = {}
+        }
+
         data["companyName"] = name
         data["companyEmail"] = email
         data["companyPhone"] = phone

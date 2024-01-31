@@ -1,31 +1,3 @@
-document.getElementById("html").style.display = "none"
-
-
-function selectItem(itemNumber, element) {
-    // Reset active class from all items
-    document.querySelectorAll('.nav-item').forEach(item => {
-        item.classList.remove('active');
-    });
-
-    // Add active class to the clicked item
-    element.classList.add('active');
-
-    if (itemNumber === 2) {
-        // Fetch and display content from page1.html
-        fetch('page1.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('content').innerHTML = data;
-            })
-            .catch(error => {
-                console.error('Error fetching page1.html:', error);
-                document.getElementById('content').innerText = 'Error loading content.';
-            });
-    } else {
-        // Update content area for other items (or remove this else block if not needed)
-        document.getElementById('content').innerText = "Item " + itemNumber + " selected";
-    }
-}
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
@@ -69,7 +41,6 @@ function checkAuthState() {
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             console.log("User is logged in");
-            document.getElementById("html").style.display = "block"
             const data = await getUserData(user);
 
             if (data["setup"]){

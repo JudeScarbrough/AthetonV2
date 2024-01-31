@@ -1,35 +1,6 @@
-document.getElementById("html").style.display = "none"
-
-
-function selectItem(itemNumber, element) {
-    // Reset active class from all items
-    document.querySelectorAll('.nav-item').forEach(item => {
-        item.classList.remove('active');
-    });
-
-    // Add active class to the clicked item
-    element.classList.add('active');
-
-    if (itemNumber === 2) {
-        // Fetch and display content from page1.html
-        fetch('page1.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('content').innerHTML = data;
-            })
-            .catch(error => {
-                console.error('Error fetching page1.html:', error);
-                document.getElementById('content').innerText = 'Error loading content.';
-            });
-    } else {
-        // Update content area for other items (or remove this else block if not needed)
-        document.getElementById('content').innerText = "Item " + itemNumber + " selected";
-    }
-}
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
-import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
+import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -69,7 +40,6 @@ function checkAuthState() {
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             console.log("User is logged in");
-            document.getElementById("html").style.display = "block"
             const data = await getUserData(user);
 
             if (data["setup"]){
@@ -81,11 +51,9 @@ function checkAuthState() {
             }
             
             if (data["paid"]){
-                if(data["paid"] !== "Yes"){
-                    window.location.href = "../pay/pay.html"
+                if(data["paid"] == "Yes"){
+                    window.location.href = "../dashboard/index.html"
                 }
-            } else {
-                window.location.href = "../pay/pay.html"
             }
 
         } else {
@@ -99,3 +67,31 @@ function checkAuthState() {
 checkAuthState();
 
 // Rest of your script...
+
+
+
+document.getElementById('pay').addEventListener('click', async function() {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    const data = await getUserData(user);
+    data["paid"] = "Yes"
+
+    if (user) {
+        // Get the database reference
+        const database = getDatabase();
+        const userRef = ref(database, 'users/' + user.uid);
+
+        // Set the 'paid' status for the user
+        set(userRef, data).then(() => {
+            console.log('Data saved successfully!');
+            // You can redirect or perform other actions here after successful data submission
+            window.location.href = "../dashboard/index.html"
+        }).catch((error) => {
+            console.error('Failed to save data', error);
+        });
+    } else {
+        console.log('No user is signed in.');
+    }
+    
+});
+
