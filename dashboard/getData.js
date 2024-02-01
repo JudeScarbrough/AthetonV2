@@ -1,8 +1,3 @@
-document.getElementById("html").style.display = "none"
-
-
-
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
 import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
@@ -39,39 +34,3 @@ async function getUserData(user) {
         return null;
     }
 }
-
-// Function to check user authentication state
-function checkAuthState() {
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            console.log("User is logged in");
-            document.getElementById("html").style.display = "block"
-            const data = await getUserData(user);
-
-            if (data["setup"]){
-                if(data["setup"] !== "Yes"){
-                    window.location.href = "../settings/settings.html"
-                }
-            } else {
-                window.location.href = "../settings/settings.html"
-            }
-            
-            if (data["paid"]){
-                if(data["paid"] !== "Yes"){
-                    window.location.href = "../pay/pay.html"
-                }
-            } else {
-                window.location.href = "../pay/pay.html"
-            }
-
-        } else {
-            console.log("User is not logged in");
-            window.location.href = "../login/login.html"
-        }
-    });
-}
-
-// Call the function to check authentication state
-checkAuthState();
-
-// Rest of your script...

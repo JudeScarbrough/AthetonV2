@@ -18,7 +18,6 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const database = getDatabase(app);
-        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
 
 
 
