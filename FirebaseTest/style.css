@@ -121,6 +121,10 @@ body, html{
     margin-top: 5px;
 }
 
+.editstack{
+    display:flex;
+    flex-direction: column;
+}
 
 
 
