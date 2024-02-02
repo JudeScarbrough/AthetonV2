@@ -12,7 +12,7 @@ const firebaseConfig = {
     appId: "1:148550589092:web:7b6ff33d2f103d37312431",
     measurementId: "G-STD8EL5GKW"
   };
-  
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -33,4 +33,9 @@ async function getUserData(user) {
         console.error(error);
         return null;
     }
+}
+
+
+function callTest(){
+    console.log("call test")
 }
